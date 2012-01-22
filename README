@@ -1,0 +1,21 @@
+This is the T programming language. I did not
+create this, but I felt it should be on GitHub
+somewhere. It doesn't run on modern computers.
+
+I've uploaded the complete archive, containing
+the manuals, platform-specific fixes, etc., to
+<http://dpk.org.uk/bucket/t3.1.tar.bz2>.
+
+There was at one point a project to revive T,
+and to at least make it run on PowerPCs. You
+can access that on the Web Archive at
+<http://dpk.org.uk/16>.
+
+Olin Shivers' History of T is available at 
+<http://www.paulgraham.com/thist.html>
+and Jonathan Rees created a homepage for the
+language at
+<http://mumble.net/~jar/tproject/>.
+Note that Messrs Shivers and Rees were both
+involved in the design and implementation of
+the language.
