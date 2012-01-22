@@ -1,0 +1,111 @@
+;Below is the procedure for compiling the primops.
+
+;;; To compile system files that contain primops set *COMPILE-PRIMOPS?* to #F
+;;; and ignore the "primops not compiled for this system" messages.
+
+;;; 68000
+;;; Run this in a 68000 compiler.
+
+(set (repl-env) orbit-env)
+(create-support '(t3_primops m68constants) '(t3_primops m68constants))
+(*define user-env 'make-empty-early-binding-locale
+make-empty-early-binding-locale)
+(load '(t3_primops m68constants t) orbit-env)
+(orbit-m68-setup 't3_primops)
+(orbit-init 'base)
+(set (orbit-syntax-table) primop-syntax-table)
+(set *compile-primops?* nil)
+(create-support '(t3_primops m68primops)   '(t3_primops m68primops))
+(create-support '(t3_primops m68arith)     '(t3_primops m68arith))
+(create-support '(t3_primops locations)    '(t3_primops locations))
+(create-support '(t3_primops m68low)       '(t3_primops m68low))
+(create-support '(t3_primops predicates)       '(t3_primops predicates))
+(orbit-init 'base  
+            'constants 'primops 'arith 'locations 'low 'predicates)
+(create-support '(t3_primops open)    '(t3_primops open))
+(create-support '(t3_primops aliases) '(t3_primops aliases))
+(create-support '(t3_primops carcdr)  '(t3_primops carcdr))
+(create-support '(t3_primops genarith)  '(t3_primops genarith))
+
+;;; To compile the primop code in the MINF files do the following:
+(compile-primop-source '(t3_primops m68primops   minf))
+(compile-primop-source '(t3_primops m68arith     minf))
+(compile-primop-source '(t3_primops locations    minf))
+(compile-primop-source '(t3_primops m68low       minf))
+(compile-primop-source '(t3_primops genarith    minf))
+
+;;; VAX
+;;; Run this in any compiler (the back end is not called).
+
+
+(set (repl-env) orbit-env)
+(orbit-vax-setup 't3_primops)
+(create-support '(t3_primops vaxconstants) '(t3_primops vaxconstants))
+(load '(t3_primops vaxconstants t) orbit-env)
+(orbit-init 'base)
+(set (orbit-syntax-table) primop-syntax-table)
+(set *compile-primops?* nil)
+(create-support '(t3_primops vaxprimops)   '(t3_primops vaxprimops))
+(create-support '(t3_primops vaxarith)     '(t3_primops vaxarith))
+(create-support '(t3_primops locations)    '(t3_primops locations))
+(create-support '(t3_primops vaxlow)       '(t3_primops vaxlow))
+(create-support '(t3_primops predicates)       '(t3_primops predicates))
+(orbit-init 'base  
+            'constants 'primops 'arith 'locations 'low 'predicates)
+(create-support '(t3_primops open)    '(t3_primops open))
+(create-support '(t3_primops aliases) '(t3_primops aliases))
+(create-support '(t3_primops carcdr)  '(t3_primops carcdr))
+(create-support '(t3_primops genarith)  '(t3_primops genarith))
+
+
+;;; Ready to COMFILE the VAX files.
+
+
+;;; To compile the primop code in the VINF files, run the following in an
+;;; Orbit for the machine on which you want to use the MINF.
+;;; WARNING: if you COMFILE the VAX primop files in the same directory you
+;;; will clobber the compiled versions of the VINF files.
+(compile-primop-source '(t3_primops vaxprimops   vinf))
+(compile-primop-source '(t3_primops vaxarith     vinf))
+(compile-primop-source '(t3_primops locations    vinf))
+(compile-primop-source '(t3_primops vaxlow       vinf))
+(compile-primop-source '(t3_primops genarith    minf))
+
+
+
+
+(set (repl-env) orbit-env)
+(orbit-sparc-setup 't3_primops)
+(create-support '(t3_primops spconstants) '(t3_primops spconstants))
+(load '(t3_primops spconstants t) orbit-env)
+(orbit-init 'base)
+(set (orbit-syntax-table) primop-syntax-table)
+(set *compile-primops?* nil)
+(create-support '(t3_primops spprimops)   '(t3_primops spprimops))
+(create-support '(t3_primops sparith)     '(t3_primops sparith))
+(create-support '(t3_primops locations)    '(t3_primops locations))
+(create-support '(t3_primops splow)       '(t3_primops splow))
+(create-support '(t3_primops predicates)       '(t3_primops predicates))
+(orbit-init 'base  
+            'constants 'primops 'arith 'locations 'low 'predicates)
+(create-support '(t3_primops open)    '(t3_primops open))
+(create-support '(t3_primops aliases) '(t3_primops aliases))
+(create-support '(t3_primops carcdr)  '(t3_primops carcdr))
+(create-support '(t3_primops spgenarith)  '(t3_primops spgenarith))
+
+
+;;; Ready to COMFILE the SP files.
+
+
+;;; To compile the primop code in the VINF files, run the following in an
+;;; Orbit for the machine on which you want to use the MINF.
+;;; WARNING: if you COMFILE the SP primop files in the same directory you
+;;; will clobber the compiled versions of the VINF files.
+(compile-primop-source '(t3_primops spprimops   si))
+(compile-primop-source '(t3_primops sparith     si))
+(compile-primop-source '(t3_primops locations    si))
+(compile-primop-source '(t3_primops splow       si))
+(compile-primop-source '(t3_primops spgenarith    si))
+
+
+
